@@ -397,12 +397,13 @@ function be_display_posts_shortcode( $atts ) {
 			$title = '';
 		}
 
-		if ( $image_size && has_post_thumbnail() )  
+		if ( $image_size && has_post_thumbnail() ) {
 			$image = '<a class="image" href="' . get_permalink() . '">' . get_the_post_thumbnail( get_the_ID(), $image_size ) . '</a> ';
-			
-		if ( $include_date ) 
+		}
+		if ( $include_date ) {
 			$date = ' <span class="date">' . get_the_date( $date_format ) . '</span>';
-			
+			apply_filters('be_displayed_posts_date', $date, get_the_date( $date_format ));
+		}
 		if( $include_author )
 			/**
 			 * Filter the HTML markup to display author information for the current post.
@@ -484,8 +485,8 @@ function be_display_posts_shortcode( $atts ) {
 		 * @param array    $original_atts Original attributes passed to the shortcode.
 		 */
 		$class = array_map( 'sanitize_html_class', apply_filters( 'display_posts_shortcode_post_class', $class, $post, $listing, $original_atts ) );
-		$output = '<' . $inner_wrapper . ' class="' . implode( ' ', $class ) . '">' . $image . $title . $date . $author . $category_display_text . $excerpt . $content . '</' . $inner_wrapper . '>';
-		
+		$output = '<' . $inner_wrapper . ' class="' . implode( ' ', $class ) . '">' . $image . $date . $title . $author . $category_display_text . $excerpt . $content . '</' . $inner_wrapper . '>';
+
 		/**
 		 * Filter the HTML markup for output via the shortcode.
 		 *
