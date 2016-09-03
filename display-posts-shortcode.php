@@ -421,7 +421,15 @@ function be_display_posts_shortcode( $atts ) {
 	
 				$length = $excerpt_length ? $excerpt_length : apply_filters( 'excerpt_length', 55 );
 				$more   = $excerpt_more ? $excerpt_more : apply_filters( 'excerpt_more', '' );
-				$more   = $excerpt_more_link ? ' <a href="' . get_permalink() . '">' . $more . '</a>' : ' ' . $more;
+				
+				$excerpt_more_link_html = apply_filters('be_displayed_posts_excerpt_more_link', 
+					array(
+						'more_text' => $more,
+						'permalink' => get_permalink(),
+					) );
+				
+				
+//				$more   = $excerpt_more_link ? $excerpt_more_link_html : ' ' . $more;
 
 				if( has_excerpt() && apply_filters( 'display_posts_shortcode_full_manual_excerpt', false ) ) {
 					$excerpt = $post->post_excerpt . $more;
@@ -439,7 +447,7 @@ function be_display_posts_shortcode( $atts ) {
 			
 //			$excerpt = ' <span class="excerpt-dash">-</span> <span class="excerpt">' . $excerpt . '</span>';
 			
-			$excerpt = apply_filters('be_displayed_posts_excerpt', $excerpt);
+			$excerpt = apply_filters('be_displayed_posts_excerpt', $excerpt) . $excerpt_more_link_html;
 		}
 			
 		if( $include_content ) {
@@ -456,7 +464,9 @@ function be_display_posts_shortcode( $atts ) {
 			$term_output = array();
 			foreach( $terms as $term )
 				$term_output[] = '<a href="' . get_term_link( $term, $category_display ) . '">' . $term->name . '</a>';
-			$category_display_text = ' <span class="category-display"><span class="category-display-label">' . $category_label . '</span> ' . implode( ', ', $term_output ) . '</span>';
+			$category_display_text = ' <span class="category-display"><span class="category-display-label">' . 
+				$category_label . '</span> ' . 
+				implode( ', ', $term_output ) . '</span>';
 
 			/**
 			 * Filter the list of categories attached to the current post.
@@ -484,8 +494,16 @@ function be_display_posts_shortcode( $atts ) {
 		 * @param WP_Query $listing       WP_Query object for the posts listing.
 		 * @param array    $original_atts Original attributes passed to the shortcode.
 		 */
-		$class = array_map( 'sanitize_html_class', apply_filters( 'display_posts_shortcode_post_class', $class, $post, $listing, $original_atts ) );
-		$output = '<' . $inner_wrapper . ' class="' . implode( ' ', $class ) . '">' . $image . $date . $title . $author . $category_display_text . $excerpt . $content . '</' . $inner_wrapper . '>';
+		$class = array_map( 'sanitize_html_class', apply_filters( 'display_posts_shortcode_post_class', $class, $post, 
+							$listing, $original_atts ) );
+		$output = '<' . $inner_wrapper . ' class="' . implode( ' ', $class ) . '">' . 
+			$image . 
+			$date .
+			$title .
+			$author .
+			$category_display_text . 
+			$excerpt . 
+			$content . '</' . $inner_wrapper . '>';
 
 		/**
 		 * Filter the HTML markup for output via the shortcode.
