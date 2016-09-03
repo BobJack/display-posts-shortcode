@@ -402,7 +402,7 @@ function be_display_posts_shortcode( $atts ) {
 		}
 		if ( $include_date ) {
 			$date = ' <span class="date">' . get_the_date( $date_format ) . '</span>';
-			apply_filters('be_displayed_posts_date', $date, get_the_date( $date_format ));
+			$date = apply_filters('be_displayed_posts_date', $date_format );
 		}
 		if( $include_author )
 			/**
