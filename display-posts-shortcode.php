@@ -1,33 +1,35 @@
 <?php
 /**
- * Plugin Name: Display Posts Shortcode
+ * Plugin Name: GNS Display Posts Shortcode
  * Plugin URI: http://www.billerickson.net/shortcode-to-display-posts/
  * Description: Display a listing of posts using the [display-posts] shortcode
  * Version: 2.7.0
- * Author: Bill Erickson
- * Author URI: http://www.billerickson.net
+ * Author: Serge Sysoev
+ * Author URI: https://sysoev.pw
  *
- * This program is free software; you can redistribute it and/or modify it under the terms of the GNU 
- * General Public License version 2, as published by the Free Software Foundation.  You may NOT assume 
+ * This program is free software; you can redistribute it and/or modify it under the terms of the GNU
+ * General Public License version 2, as published by the Free Software Foundation.  You may NOT assume
  * that you can use any other version of the GPL.
  *
- * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without 
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
  * even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ *
+ * ATTENTION:
+ * This is a fork of the original plugin by Bill Erickson.
+ * There is NO WARRANTY at all. For detailed information about this plugin visit
+ * http://www.billerickson.net/shortcode-to-display-posts/
  *
  * @package Display Posts
  * @version 2.7.0
- * @author Bill Erickson <bill@billerickson.net>
- * @copyright Copyright (c) 2011, Bill Erickson
+ * @author Serge Sysoev <sergey@sysoev.ca>
  * @link http://www.billerickson.net/shortcode-to-display-posts/
  * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
- 
- 
 /**
  * To Customize, use the following filters:
  * @link https://github.com/billerickson/display-posts-shortcode/wiki#customization-with-filters
- */ 
- 
+ */
+
 // Create the shortcode
 add_shortcode( 'display-posts', 'be_display_posts_shortcode' );
 function be_display_posts_shortcode( $atts ) {
