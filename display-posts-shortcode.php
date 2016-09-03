@@ -392,6 +392,7 @@ function be_display_posts_shortcode( $atts ) {
 		if ( $include_title ) {
 			/** This filter is documented in wp-includes/link-template.php */
 			$title = '<a class="title" href="' . apply_filters( 'the_permalink', get_permalink() ) . '">' . get_the_title() . '</a>';
+			$title = apply_filters('be_displayed_posts_post_title', $title);
 		} else {
 			$title = '';
 		}
